@@ -1,3 +1,8 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -5,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 public function showRegister()
 {
-    return view('register');
+    return view('auth.register');
 }
 
 public function register(Request $request)
@@ -29,7 +34,7 @@ public function register(Request $request)
 
 public function showLogin()
 {
-    return view('logIn');
+    return view('auth.login');
 }
 
 public function login(Request $request)
