@@ -1,29 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;  
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class LoginController extends Controller
+class Controller extends BaseController
 {
-    public function showLoginForm() {
-        return view('auth.login');
-    }
-    
-    public function login(Request $request) {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-    
-        if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->intended('/dashboard');
-        }
-    
-        return back()->withErrors(['email' => 'Invalid credentials']);
-    }
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
 
 

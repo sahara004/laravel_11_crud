@@ -6,17 +6,18 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 
-// Public Routes
+// Redirect root to login
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-// Product Routes
-Route::resource('products', ProductController::class);
-
-// Admin Routes
-Route::prefix('admin')->group(function () {
+// Product Routes (Protected)
+Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
+    // Admin routes can also be protected here if needed
+    Route::prefix('admin')->group(function () {
+        Route::resource('products', ProductController::class);
+    });
 });
 
 // Authentication Routes
@@ -31,5 +32,5 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Dashboard Route (Protected by Auth)
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('dashboard');
 
