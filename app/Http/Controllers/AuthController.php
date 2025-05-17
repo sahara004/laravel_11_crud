@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+class AuthController extends Controller
+{
 public function showRegister()
 {
     return view('auth.register');
@@ -60,4 +62,5 @@ public function logout(Request $request)
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     return redirect('/login');
+}
 }

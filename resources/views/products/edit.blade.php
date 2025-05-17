@@ -18,10 +18,9 @@ btn-primary btn-sm">&larr; Back</a>
  </div>
  </div>
  <div class="card-body">
- <form action="{{ route('products.update', $product-
->id) }}" method="post">
+ <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
  @csrf
-@method("PUT")
+ @method("PUT")
  <div class="mb-3 row">
  <label for="code" class="col-md-4 col-formlabel text-md-end text-start">Code</label>
  <div class="col-md-6">
@@ -82,8 +81,22 @@ name="description">{{ $product->description }}</textarea>
  @enderror
  </div>
  </div>
-<div class="mb-3 row">
- <input type="submit" class="col-md-3 offsetmd-5 btn btn-primary" value="Update">
+ <div class="mb-3 row">
+ <label for="image" class="col-md-4 col-form-label text-md-end text-start">Product Image</label>
+ <div class="col-md-6">
+ <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+ @if($product->image)
+ <div class="mt-2">
+ <img src="{{ asset('storage/images/'.$product->image) }}" alt="{{ $product->name }}" width="100">
+ </div>
+ @endif
+ @error('image')
+ <span class="text-danger">{{ $message }}</span>
+ @enderror
+ </div>
+ </div>
+ <div class="mb-3 row">
+ <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update">
  </div>
  </form>
  </div>
@@ -92,3 +105,4 @@ name="description">{{ $product->description }}</textarea>
 </div>
  
 @endsection
+
